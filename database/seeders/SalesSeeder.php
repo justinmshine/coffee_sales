@@ -21,7 +21,7 @@ class SalesSeeder extends Seeder
                 'sales_price' => 23.33,
                 'coffee_id' => 1,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::createFromFormat('Y-m-d H:i:s', '2022-01-01 10:05:00')
             ], 
             [
                 'quantity' => 2,
@@ -29,7 +29,7 @@ class SalesSeeder extends Seeder
                 'sales_price' => 58.24,
                 'coffee_id' => 2,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::createFromFormat('Y-m-d H:i:s', '2022-01-02 11:10:00')
             ]
         ]);
     }
