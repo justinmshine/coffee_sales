@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\CoffeesModel;
+use App\Models\SalesModel;
 
 class SalesController extends Controller
 {
@@ -12,6 +13,36 @@ class SalesController extends Controller
      */
     public function index(Request $request) {
         $coffees = CoffeesModel::get();
-        return view('coffee_sales', ['coffees' => $coffees]);
+        $sales = SalesModel::get();
+        return view('coffee_sales', ['coffees' => $coffees, 'sales' => $sales]);
+    }
+
+    /**
+     * Insert new sale
+     */
+    public function insert(Request $request) {
+        $validatedData = $request->validate([
+            'coffee_id' => 'required|integer',
+            'quantity' => 'required|integer',
+            'cost' => 'required|double',
+            'sales_price' => 'required|double'
+        ]);
+
+        $params = $request->all();
+        $item = SalesModel::make();
+        $item->coffee_id = $params['coffee_id'];
+        $item->quantity = $params['quantity'];
+        $item->cost = $params['cost'];
+        $item->sales_price = $params['sales_price'];
+        $item->save();
+
+        return Redirect::back()->with('message', 'Sale Inserted');
+    }
+
+    /**
+     * Calculate the sales price
+     */
+    public function calculate(Request $request) {
+
     }
 }

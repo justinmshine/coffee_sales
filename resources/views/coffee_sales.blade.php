@@ -51,6 +51,7 @@
                         {{ __('Previous Sales') }}
                     </h2>
                     <table>
+                        {{ $sales }}
                     </table>
                 </div>
             </div>
