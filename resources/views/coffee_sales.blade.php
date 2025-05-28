@@ -22,17 +22,17 @@
                         <label for="first_name">Product</label><br>
                         <select name="coffee_id" id="coffee_id">
                             @foreach ($coffees as $coffee)
-                                <option value="{{ $coffee->id }}">{{ $coffee->name }}</option>
+                                <option value="{{ $coffee->id }}" {{ (collect(old('coffee_id'))->contains($coffee->id)) ? 'selected':'' }}>{{ $coffee->name }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="float-left ml-12">
                         <label for="quantity">Quantity</label><br>
-                        <input class="w-20" id="quantity" name="quantity" type="text">
+                        <input class="w-20" id="quantity" name="quantity" type="text" value="{{ old('quantity') }}">
                     </div>
                     <div class="float-left ml-12">
                         <label for="cost">Unit Cost (£)</label><br>
-                        <input class="w-20" id="cost" name="cost" type="text">
+                        <input class="w-20" id="cost" name="cost" type="text" value="{{ old('cost') }}">
                     </div>
                     <div class="float-left ml-12">
                         <label for="sales_price">Selling Price</label><br>
