@@ -16,6 +16,8 @@ return new class extends Migration
             $table->integer('quantity');
             $table->double('cost');
             $table->double('sales_price');
+            $table->unsignedBigInteger('coffee_id');
+            $table->foreign('coffee_id')->index('coffee_id')->references('id')->on('coffee');
             $table->timestamps();
         });
     }
