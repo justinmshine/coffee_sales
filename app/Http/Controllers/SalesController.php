@@ -43,6 +43,11 @@ class SalesController extends Controller
      * Calculate the sales price
      */
     public function calculate(Request $request) {
-
+        $params = $request->all();
+        $coffee = CoffeesModel::findOrFail($params['coffee']);
+        $shipping = 10;
+        $cost = $params['quantity'] * $params['cost'];
+        $price = ($cost / ( 1 - $coffee->profit_margin ) ) + $shipping;
+        return response()->json($price);
     }
 }
