@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use App\Models\CoffeesModel;
 use App\Models\SalesModel;
+use Akaunting\Money\Currency;
+use Akaunting\Money\Money;
 
 class SalesController extends Controller
 {
@@ -24,8 +27,8 @@ class SalesController extends Controller
         $validatedData = $request->validate([
             'coffee_id' => 'required|integer',
             'quantity' => 'required|integer',
-            'cost' => 'required|double',
-            'sales_price' => 'required|double'
+            'cost' => 'required|regex:/^\d+(\.\d{1,2})?$/',
+            'sales_price' => 'required|regex:/^\d+(\.\d{1,2})?$/',
         ]);
 
         $params = $request->all();
@@ -36,7 +39,10 @@ class SalesController extends Controller
         $item->sales_price = $params['sales_price'];
         $item->save();
 
-        return Redirect::back()->with('message', 'Sale Inserted');
+        $coffees = CoffeesModel::get();
+        $sales = SalesModel::orderBy('updated_at', 'DESC')->get();
+
+        return redirect()->route('coffee.sales', ['coffees' => $coffees, 'sales' => $sales]);
     }
 
     /**
@@ -48,6 +54,6 @@ class SalesController extends Controller
         $shipping = 10;
         $cost = $params['quantity'] * $params['cost'];
         $price = ($cost / ( 1 - $coffee->profit_margin ) ) + $shipping;
-        return response()->json($price);
+        return response()->json(Money::GBP($price));
     }
 }

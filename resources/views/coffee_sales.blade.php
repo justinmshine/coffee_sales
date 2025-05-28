@@ -91,7 +91,7 @@
                 if (this.readyState == 4 && this.status == 200) {
                     let response = JSON.parse(this.responseText);
                     let sales_price = document.getElementById('sales_price');
-                    sales_price.setAttribute('value', response);
+                    sales_price.setAttribute('value', response.amount);
                 }
             };
             xhttp.send("coffee=" + coffee + "&quantity=" + quantity + "&cost=" + cost);

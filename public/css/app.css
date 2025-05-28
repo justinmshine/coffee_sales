@@ -1320,6 +1320,17 @@ select {
 .float-left {
   float: left;
 }
+.alert-danger {
+  color: #9D1414;
+  font-size: 18px;
+  font-weight: bold;
+}
+.alert-danger ul {
+  list-style-type: none;
+}
+.alert-danger-field {
+  border-color: #9D1414;
+}
 @media (prefers-color-scheme: dark) {
 
   .dark\:border-gray-700 {
