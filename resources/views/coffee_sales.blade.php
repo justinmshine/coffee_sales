@@ -46,12 +46,27 @@
         </div>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="mt-20">
+                <div class="mt-20 mb-24">
                     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                         {{ __('Previous Sales') }}
                     </h2>
                     <table>
-                        {{ $sales }}
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Unit Cost</th>
+                            <th>Selling Price</th>
+                            <th>Sold at</th>
+                        </tr>
+                        @foreach($sales as $sale)
+                            <tr>
+                                <td>{{ $sale->coffee->name }}</td>
+                                <td>{{ $sale->quantity }}</td>
+                                <td>£{{ $sale->cost }}</td>
+                                <td>£{{ $sale->sales_price }}</td>
+                                <td>{{ $sale->updated_at }}</td>
+                            </tr>
+                        @endforeach
                     </table>
                 </div>
             </div>

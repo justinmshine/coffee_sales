@@ -13,7 +13,7 @@ class SalesController extends Controller
      */
     public function index(Request $request) {
         $coffees = CoffeesModel::get();
-        $sales = SalesModel::get();
+        $sales = SalesModel::orderBy('updated_at', 'DESC')->get();
         return view('coffee_sales', ['coffees' => $coffees, 'sales' => $sales]);
     }
 

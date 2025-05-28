@@ -145,10 +145,14 @@ sup {
 3. Remove gaps between table borders by default.
 */
 
-table {
-  text-indent: 0; /* 1 */
-  border-color: inherit; /* 2 */
-  border-collapse: collapse; /* 3 */
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding-right: 50px;
+  text-align: left;
 }
 
 /*
@@ -700,6 +704,9 @@ select {
 }
 .mb-4 {
   margin-bottom: 1rem;
+}
+.mb-24 {
+  margin-bottom: 6rem;
 }
 .mt-1 {
   margin-top: 0.25rem;
