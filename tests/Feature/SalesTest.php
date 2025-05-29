@@ -39,6 +39,13 @@ class SalesTest extends TestCase
         DB::statement('PRAGMA foreign_keys = ON');
 
         $response->assertStatus(302);
+
+        $this->assertDatabaseHas('sales', [
+            'coffee_id' => 2,
+            'quantity' => 12,
+            'cost' => 54.12,
+            'sales_price' => 21.76
+        ]);
     }
 
     /**
@@ -81,5 +88,36 @@ class SalesTest extends TestCase
         $response = $this->get('/sales');
 
         $response->assertStatus(200);
+        $response->assertSee('Sales');
+    }
+
+    /**
+     * Test validation error when inserting sale with missing fields
+     */
+    public function test_insert_sale_validation_error(): void
+    {
+        $user = User::factory()->create();
+        $this->post('/login', [
+            'email' => $user->email,
+            'password' => 'password',
+        ]);
+
+        $response = $this->post('/sales/add/post', [
+            // Missing coffee_id, quantity, cost, sales_price
+        ]);
+
+        $response->assertSessionHasErrors(['coffee_id', 'quantity', 'cost', 'sales_price']);
+    }
+
+    /**
+     * Test unauthorized user cannot access sales routes
+     */
+    public function test_guest_cannot_access_sales_routes(): void
+    {
+        $response = $this->get('/sales');
+        $response->assertRedirect('/login');
+
+        $response = $this->post('/sales/add/post', []);
+        $response->assertRedirect('/login');
     }
 }
